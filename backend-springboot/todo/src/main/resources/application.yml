@@ -1,0 +1,33 @@
+spring:  
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jpa:
+    properties:
+      hibernate:
+        format_sql: 'true'
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+  profiles:
+    active: local
+
+springfox:
+  documentation:
+    swagger:
+      use-model-v3: 'false'
+---
+
+spring:
+  profiles: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/todo?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    password: '12345678'
+  kakao:
+    redirectbaseuri: http://localhost:8080
+---
+
+spring:
+  profiles: prod
