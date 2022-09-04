@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class TodoController {
     private TodoService service;
 
     @PostMapping
-    public ResponseEntity<ResponseDTO<TodoDTO>> createTodo(Long userId, @RequestBody TodoDTO dto) {
+    public ResponseEntity<ResponseDTO<TodoDTO>> createTodo(@AuthenticationPrincipal Long userId,
+            @RequestBody TodoDTO dto) {
         try {
             TodoEntity entity = TodoDTO.toEntity(dto);
             entity.setId(null);
@@ -54,7 +56,8 @@ public class TodoController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDTO<TodoDTO>> retrieveTodoList(Long userId) {
+    public ResponseEntity<ResponseDTO<TodoDTO>> retrieveTodoList(
+            @AuthenticationPrincipal Long userId) {
         try {
             List<TodoEntity> entities = service.retrieve(userId);
             List<TodoDTO> dtos = entities.stream()
@@ -77,7 +80,8 @@ public class TodoController {
     }
 
     @PutMapping
-    public ResponseEntity<ResponseDTO<TodoDTO>> updateTodo(Long userId, @RequestBody TodoDTO dto) {
+    public ResponseEntity<ResponseDTO<TodoDTO>> updateTodo(@AuthenticationPrincipal Long userId,
+            @RequestBody TodoDTO dto) {
         try {
             TodoEntity entity = TodoDTO.toEntity(dto);
             entity.setUserId(userId);
@@ -103,7 +107,8 @@ public class TodoController {
     }
 
     @DeleteMapping
-    public ResponseEntity<ResponseDTO<TodoDTO>> deleteTodo(Long userId, @RequestBody TodoDTO dto) {
+    public ResponseEntity<ResponseDTO<TodoDTO>> deleteTodo(@AuthenticationPrincipal Long userId,
+            @RequestBody TodoDTO dto) {
         try {
             TodoEntity entity = TodoDTO.toEntity(dto);
             entity.setUserId(userId);

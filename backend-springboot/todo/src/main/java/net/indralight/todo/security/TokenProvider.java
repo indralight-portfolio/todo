@@ -34,13 +34,13 @@ public class TokenProvider {
                 .compact();
     }
 
-    public String validateAndGetUserId(String token) {
+    public Long validateAndGetUserId(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
 
-        return claims.getSubject();
+        return Long.parseLong(claims.getSubject());
     }
 }
