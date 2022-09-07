@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import net.indralight.todo.dto.KakaoOAuthDTO;
 import net.indralight.todo.dto.SnsUserDTO;
 import net.indralight.todo.model.UserEntity;
 import net.indralight.todo.persistence.UserRepository;
@@ -51,10 +52,10 @@ public class UserService {
         return null;
     }
 
-    public UserEntity getByKakao(String code) {
+    public UserEntity getByKakao(KakaoOAuthDTO kakaoOAuthDTO) {
         final String provider = "kakao";
 
-        String accessToken = oauthService.getKakaoAccessToken(code);
+        String accessToken = oauthService.getKakaoAccessToken(kakaoOAuthDTO);
         try {
             SnsUserDTO snsUserDTO = oauthService.createKakaoUser(accessToken);
             UserEntity user = userRepository.findByProviderAndSnsId(provider, snsUserDTO.getId()

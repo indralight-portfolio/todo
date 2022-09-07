@@ -8,24 +8,21 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import net.indralight.todo.dto.KakaoOAuthDTO;
 import net.indralight.todo.dto.SnsUserDTO;
 
 @Service
 public class OAuthService {
+    public String getKakaoAccessToken(KakaoOAuthDTO kakaoOAuthDTO) {
+        String code = kakaoOAuthDTO.getCode();
+        String redirectUri = kakaoOAuthDTO.getRedirectUri();
 
-    @Autowired
-    private Environment environment;
-
-    public String getKakaoAccessToken(String code) {
         final String kakaoID = "29ec7a66579f65c6ba3efa0d673d5b6a";
-        final String baseUri = environment.getProperty("spring.kakao.redirectbaseuri");
         System.out.println("kakaoID : " + kakaoID);
 
         String access_Token = "";
@@ -45,8 +42,8 @@ public class OAuthService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=" + kakaoID); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri=" + baseUri + "/auth/kakao"); // TODO 인가코드 받은
-                                                                   // redirect_uri 입력
+            sb.append("&redirect_uri=" + redirectUri); // TODO 인가코드 받은
+                                                       // redirect_uri 입력
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();

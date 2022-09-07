@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ResponseDTO<T> {
-    private String error;
-    private T data;
+public class KakaoOAuthDTO {
+    private String code;
+    private String redirectUri;
 }
