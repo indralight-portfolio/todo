@@ -8,6 +8,10 @@ import {
   Container,
   Link,
 } from '@material-ui/core';
+import { KAKAO_REDIRECT_URI } from './app-config';
+
+const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,13 +27,18 @@ class Login extends React.Component {
     signin({ email: email, password: password });
   }
 
+  kakao() {
+    alert('카카오로 로그인');
+    window.location.href = KAKAO_AUTH_URL;
+  }
+
   render() {
     return (
       <Container component="main" maxWidth="xs" style={{ margintop: '8%' }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography component="h1" variant="h5">
-              로그인
+              로그인 - {process.env.NODE_ENV} /{KAKAO_REDIRECT_URI}
             </Typography>
           </Grid>
         </Grid>
@@ -66,6 +75,17 @@ class Login extends React.Component {
                 color="primary"
               >
                 로그인
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={this.kakao}
+              >
+                카카오로 로그인
               </Button>
             </Grid>
           </Grid>

@@ -58,3 +58,16 @@ export async function signup(userDTO) {
     alert('이미 가입한 이메일 입니다.');
   }
 }
+
+export async function kakao(kakoOAuthDTO) {
+  try {
+    const response = await call('/auth/kakao', 'POST', kakoOAuthDTO);
+    if (response.token) {
+      localStorage.setItem(ACCESS_TOKEN, response.token);
+      localStorage.setItem('nick', response.nick);
+      window.location.href = '/';
+    }
+  } catch {
+    alert('로그인에 실패하였습니다.');
+  }
+}

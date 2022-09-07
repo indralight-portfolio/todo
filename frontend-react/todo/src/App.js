@@ -26,7 +26,8 @@ class App extends React.Component {
   componentDidMount() {
     call('/todo', 'GET', null).then((response) => {
       console.log(2, response);
-      this.setState({ items: response.data, loading: false });
+      const nick = localStorage.getItem('nick');
+      this.setState({ items: response.data, loading: false, nick: nick });
     });
   }
 
@@ -84,6 +85,7 @@ class App extends React.Component {
     var todoListPage = (
       <div>
         {navigationBar} {/* 네비게이션 바 렌더링 */}
+        <h1>{this.state.nick} 님, 안녕하세요.</h1>
         <Container maxWidth="md">
           <AddTodo add={this.add} />
           <div className="TodoList">{todoItems}</div>
