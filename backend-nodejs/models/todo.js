@@ -18,11 +18,11 @@ class Todo extends Sequelize.Model {
     },
     title: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false
     },
     user_id: {
       type: DataTypes.BIGINT,
-      allowNull: true
+      allowNull: false
     }
   }, {
     sequelize,

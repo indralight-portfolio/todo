@@ -14,8 +14,7 @@ class User extends Sequelize.Model {
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: false,
-      unique: "UKob8kqyqqgmefl0aco34akdtpe"
+      allowNull: false
     },
     nick: {
       type: DataTypes.STRING(255),
@@ -45,6 +44,15 @@ class User extends Sequelize.Model {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "UKnqrwybr61j4tv0yjquumwxs2",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "email" },
+          { name: "provider" },
         ]
       },
       {
