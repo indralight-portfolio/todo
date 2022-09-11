@@ -28,7 +28,6 @@ class Login extends React.Component {
   }
 
   kakao() {
-    alert('카카오로 로그인');
     window.location.href = KAKAO_AUTH_URL;
   }
 
@@ -38,7 +37,8 @@ class Login extends React.Component {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography component="h1" variant="h5">
-              로그인 - {process.env.NODE_ENV} /{KAKAO_REDIRECT_URI}
+              로그인
+              {/* - {process.env.NODE_ENV} /{KAKAO_REDIRECT_URI} */}
             </Typography>
           </Grid>
         </Grid>

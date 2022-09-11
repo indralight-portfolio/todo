@@ -25,8 +25,7 @@ class App extends React.Component {
 
   componentDidMount() {
     call('/todo', 'GET', null).then((response) => {
-      console.log(2, response);
-      const nick = localStorage.getItem('nick');
+      const nick = localStorage.getItem('NICK');
       this.setState({ items: response.data, loading: false, nick: nick });
     });
   }

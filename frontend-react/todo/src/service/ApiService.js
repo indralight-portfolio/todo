@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '../app-config';
 const ACCESS_TOKEN = 'ACCESS_TOKEN';
+const NICK = 'NICK';
 
 export function call(api, method, request) {
   let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -38,6 +39,7 @@ export async function signin(userDTO) {
     const response = await call('/auth/signin', 'POST', userDTO);
     if (response.token) {
       localStorage.setItem(ACCESS_TOKEN, response.token);
+      localStorage.setItem(NICK, response.user.nick);
       window.location.href = '/';
     }
   } catch {
@@ -47,6 +49,7 @@ export async function signin(userDTO) {
 
 export async function signout() {
   localStorage.removeItem(ACCESS_TOKEN);
+  localStorage.removeItem(NICK);
   window.location.href = '/login';
 }
 
@@ -64,7 +67,7 @@ export async function kakao(kakoOAuthDTO) {
     const response = await call('/auth/kakao', 'POST', kakoOAuthDTO);
     if (response.token) {
       localStorage.setItem(ACCESS_TOKEN, response.token);
-      localStorage.setItem('nick', response.nick);
+      localStorage.setItem(NICK, response.user.nick);
       window.location.href = '/';
     }
   } catch {
