@@ -25,7 +25,7 @@ public class UserService {
             throw new RuntimeException("Invalid arguments");
         }
         final String email = userEntity.getEmail();
-        if (userRepository.existsByEmail(email)) {
+        if (userRepository.existsByEmailAndProvider(email, "local")) {
             log.warn("Email already exists {}", email);
             throw new RuntimeException("Email already exists");
         }
@@ -44,7 +44,7 @@ public class UserService {
 
     public UserEntity getByCredentials(final String email, final String password) {
 
-        final UserEntity originalUser = userRepository.findByEmail(email);
+        final UserEntity originalUser = userRepository.findByEmailAndProvider(email, "local");
         if (originalUser != null && password.equals(originalUser.getPassword())) {
             return originalUser;
         }

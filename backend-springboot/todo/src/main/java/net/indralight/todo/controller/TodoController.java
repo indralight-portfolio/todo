@@ -9,7 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ public class TodoController {
     @Autowired
     private TodoService service;
 
-    @PostMapping
+    @PutMapping
     public ResponseEntity<ResponseDTO<List<TodoDTO>>> createTodo(
             @AuthenticationPrincipal Long userId, @RequestBody TodoDTO dto) {
         try {
@@ -79,7 +79,7 @@ public class TodoController {
         }
     }
 
-    @PutMapping
+    @PatchMapping
     public ResponseEntity<ResponseDTO<List<TodoDTO>>> updateTodo(
             @AuthenticationPrincipal Long userId, @RequestBody TodoDTO dto) {
         try {

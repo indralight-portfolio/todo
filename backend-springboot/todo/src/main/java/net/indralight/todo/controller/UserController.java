@@ -14,7 +14,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import net.indralight.todo.dto.KakaoOAuthDTO;
 import net.indralight.todo.dto.ResponseDTO;
-import net.indralight.todo.dto.UserDTO;
+import net.indralight.todo.dto.UserRequestDTO;
+import net.indralight.todo.dto.UserResponseDTO;
 import net.indralight.todo.model.UserEntity;
 import net.indralight.todo.security.TokenProvider;
 import net.indralight.todo.service.UserService;
@@ -40,23 +41,22 @@ public class UserController {
 
     @ApiOperation(value = "유저 등록")
     // @ApiImplicitParam(name = "userDTO", dataType = "UserDTO")
-    @ApiResponses({ @ApiResponse(code = 200, response = UserDTO.class, message = "성공"),
+    @ApiResponses({ @ApiResponse(code = 200, response = UserEntity.class, message = "성공"),
             @ApiResponse(code = 400, response = ResponseDTO.class, message = "실패") })
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> signup(@RequestBody UserRequestDTO userRequestDTO) {
         try {
             UserEntity user = UserEntity.builder()
-                    .email(userDTO.getEmail())
-                    .nick(userDTO.getNick())
-                    .password(userDTO.getPassword())
+                    .email(userRequestDTO.getEmail())
+                    .nick(userRequestDTO.getNick())
+                    .password(userRequestDTO.getPassword())
                     .provider("local")
                     .build();
 
             UserEntity registeredUser = userService.create(user);
-            UserDTO responseUserDTO = UserDTO.fromEntity(registeredUser);
 
             return ResponseEntity.ok()
-                    .body(responseUserDTO);
+                    .body(registeredUser);
         } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .error(e.getMessage())
@@ -68,21 +68,24 @@ public class UserController {
 
     @ApiOperation(value = "유저 로그인")
     // @ApiImplicitParam(name = "userDTO", dataType = "UserDTO")
-    @ApiResponses({ @ApiResponse(code = 200, response = UserDTO.class, message = "성공"),
+    @ApiResponses({ @ApiResponse(code = 200, response = UserResponseDTO.class, message = "성공"),
             @ApiResponse(code = 400, response = ResponseDTO.class, message = "실패") })
     @PostMapping("/signin")
-    public ResponseEntity<?> signin(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> signin(@RequestBody UserRequestDTO userRequestDTO) {
 //        UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword(),
 //                passwordEncoder);
-        UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword());
+        UserEntity user = userService.getByCredentials(userRequestDTO.getEmail(),
+                userRequestDTO.getPassword());
 
         if (user != null) {
             final String token = tokenProvider.create(user);
-            final UserDTO responseUserDTO = UserDTO.fromEntity(user);
-            responseUserDTO.setToken(token);
+            final UserResponseDTO userResponseDTO = UserResponseDTO.builder()
+                    .token(token)
+                    .user(user)
+                    .build();
 
             return ResponseEntity.ok()
-                    .body(responseUserDTO);
+                    .body(userResponseDTO);
         } else {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .error("Login failed.")
@@ -96,7 +99,7 @@ public class UserController {
 
     @ApiOperation(value = "카카오 로그인")
     // @ApiImplicitParam(name = "userDTO", dataType = "UserDTO")
-    @ApiResponses({ @ApiResponse(code = 200, response = UserDTO.class, message = "성공"),
+    @ApiResponses({ @ApiResponse(code = 200, response = UserResponseDTO.class, message = "성공"),
             @ApiResponse(code = 400, response = ResponseDTO.class, message = "실패") })
     @PostMapping("/kakao")
     public ResponseEntity<?> kakao(@RequestBody KakaoOAuthDTO kakaoOAuthDTO) {
@@ -104,11 +107,13 @@ public class UserController {
 
         if (user != null) {
             final String token = tokenProvider.create(user);
-            final UserDTO responseUserDTO = UserDTO.fromEntity(user);
-            responseUserDTO.setToken(token);
+            final UserResponseDTO userResponseDTO = UserResponseDTO.builder()
+                    .token(token)
+                    .user(user)
+                    .build();
 
             return ResponseEntity.ok()
-                    .body(responseUserDTO);
+                    .body(userResponseDTO);
         } else {
             ResponseDTO responseDTO = ResponseDTO.builder()
                     .error("Login failed.")

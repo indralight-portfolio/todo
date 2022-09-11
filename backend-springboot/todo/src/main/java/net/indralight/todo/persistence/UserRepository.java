@@ -7,11 +7,9 @@ import net.indralight.todo.model.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    UserEntity findByEmail(String email);
+    UserEntity findByEmailAndProvider(String email, String provider);
 
-    Boolean existsByEmail(String email);
-
-    UserEntity findByEmailAndPassword(String email, String password);
+    Boolean existsByEmailAndProvider(String email, String provider);
 
     UserEntity findByProviderAndSnsId(String provider, String snsId);
 }

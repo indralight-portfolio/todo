@@ -22,13 +22,13 @@ public class TokenProvider {
 
     public String create(UserEntity userEntity) {
         Date ExpiryDate = Date.from(Instant.now()
-                .plus(1, ChronoUnit.DAYS));
+                .plus(10, ChronoUnit.MINUTES));
 
         return Jwts.builder()
                 .signWith(key)
                 .setSubject(userEntity.getId()
                         .toString())
-                .setIssuer("demo app")
+                .setIssuer("todo api")
                 .setIssuedAt(new Date())
                 .setExpiration(ExpiryDate)
                 .compact();
