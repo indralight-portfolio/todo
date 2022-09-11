@@ -17,8 +17,8 @@ import net.indralight.todo.dto.KakaoOAuthDTO;
 import net.indralight.todo.dto.SnsUserDTO;
 
 @Service
-public class OAuthService {
-    public String getKakaoAccessToken(KakaoOAuthDTO kakaoOAuthDTO) {
+public class KakaoOAuthService {
+    public String getAccessToken(KakaoOAuthDTO kakaoOAuthDTO) {
         String code = kakaoOAuthDTO.getCode();
         String redirectUri = kakaoOAuthDTO.getRedirectUri();
 
@@ -84,7 +84,7 @@ public class OAuthService {
         return access_Token;
     }
 
-    public SnsUserDTO createKakaoUser(String token) throws Exception {
+    public SnsUserDTO getKakaoUser(String token) throws Exception {
 
         String reqURL = "https://kapi.kakao.com/v2/user/me";
 

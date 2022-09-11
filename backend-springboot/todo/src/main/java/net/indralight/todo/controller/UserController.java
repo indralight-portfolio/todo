@@ -53,7 +53,7 @@ public class UserController {
                     .provider("local")
                     .build();
 
-            UserEntity registeredUser = userService.create(user);
+            UserEntity registeredUser = userService.createByLocal(user);
 
             return ResponseEntity.ok()
                     .body(registeredUser);
@@ -74,7 +74,7 @@ public class UserController {
     public ResponseEntity<?> signin(@RequestBody UserRequestDTO userRequestDTO) {
 //        UserEntity user = userService.getByCredentials(userDTO.getEmail(), userDTO.getPassword(),
 //                passwordEncoder);
-        UserEntity user = userService.getByCredentials(userRequestDTO.getEmail(),
+        UserEntity user = userService.getByLocal(userRequestDTO.getEmail(),
                 userRequestDTO.getPassword());
 
         if (user != null) {

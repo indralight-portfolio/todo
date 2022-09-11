@@ -17,15 +17,16 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private OAuthService oauthService;
+    private KakaoOAuthService oauthService;
 
-    public UserEntity create(final UserEntity userEntity) {
+    public UserEntity createByLocal(final UserEntity userEntity) {
 
         if (userEntity == null || userEntity.getEmail() == null) {
             throw new RuntimeException("Invalid arguments");
         }
         final String email = userEntity.getEmail();
-        if (userRepository.existsByEmailAndProvider(email, "local")) {
+        final String provider = userEntity.getProvider();
+        if (userRepository.existsByEmailAndProvider(email, provider)) {
             log.warn("Email already exists {}", email);
             throw new RuntimeException("Email already exists");
         }
@@ -42,9 +43,10 @@ public class UserService {
 //        return null;
 //    }
 
-    public UserEntity getByCredentials(final String email, final String password) {
+    public UserEntity getByLocal(final String email, final String password) {
+        final String provider = "local";
 
-        final UserEntity originalUser = userRepository.findByEmailAndProvider(email, "local");
+        final UserEntity originalUser = userRepository.findByEmailAndProvider(email, provider);
         if (originalUser != null && password.equals(originalUser.getPassword())) {
             return originalUser;
         }
@@ -55,9 +57,9 @@ public class UserService {
     public UserEntity getByKakao(KakaoOAuthDTO kakaoOAuthDTO) {
         final String provider = "kakao";
 
-        String accessToken = oauthService.getKakaoAccessToken(kakaoOAuthDTO);
+        String accessToken = oauthService.getAccessToken(kakaoOAuthDTO);
         try {
-            SnsUserDTO snsUserDTO = oauthService.createKakaoUser(accessToken);
+            SnsUserDTO snsUserDTO = oauthService.getKakaoUser(accessToken);
             UserEntity user = userRepository.findByProviderAndSnsId(provider, snsUserDTO.getId()
                     .toString());
 
