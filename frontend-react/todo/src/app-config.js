@@ -4,8 +4,9 @@ let backendName;
 let swaggerUrl;
 
 const hostname = window && window.location && window.location.hostname;
+const host = window && window.location && window.location.host;
 
-kakaoRedirectUri = 'http://' + hostname + '/kakao';
+kakaoRedirectUri = 'http://' + host + '/kakao';
 if (hostname === 'localhost') {
   backendName = 'local';
   backendBaseURL = 'http://localhost:8080';
