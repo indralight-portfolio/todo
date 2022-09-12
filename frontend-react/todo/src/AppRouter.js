@@ -5,18 +5,37 @@ import Login from './Login';
 import SignUp from './SignUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { Link } from '@material-ui/core';
+import { Container, Grid, Link, Button } from '@material-ui/core';
 import Kakao from './Kakao';
 import { API_NAME, SWAGGER_URL } from './app-config';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Container maxWidth="xs" style="text-align:center">
+      <Grid justifyContent="space-between" container>
+        <Grid item>
+          <Link
+            href="http://todo-springboot.indralight.net:3000"
+            target="_blank"
+          >
+            springboot
+          </Link>
+        </Grid>
+        <Grid item>
+          <Link href="http://todo-nodejs.indralight.net:3000" target="_blank">
+            nodejs
+          </Link>
+        </Grid>
+        <Grid item>
+          <Link href="http://todo-aspnet.indralight.net:3000" target="_blank">
+            aspnet
+          </Link>
+        </Grid>
+      </Grid>
       <Link href={SWAGGER_URL} target="_blank">
-        {API_NAME}
+        Swagger - {API_NAME}
       </Link>
-    </Typography>
+    </Container>
   );
 }
 
