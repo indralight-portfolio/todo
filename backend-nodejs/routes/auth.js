@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { User } = require('../models/index').Models;
 const jwt = require('jsonwebtoken');
+const fetch = require('node-fetch');
 
 const KAKAO_ID = '29ec7a66579f65c6ba3efa0d673d5b6a';
 const { JWT_SECRET } = require('./middlewares');
