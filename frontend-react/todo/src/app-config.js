@@ -8,7 +8,7 @@ const hostname = window && window.location && window.location.hostname;
 kakaoRedirectUri = 'http://' + hostname + '/kakao';
 if (hostname === 'localhost') {
   backendName = 'local';
-  backendBaseURL = 'http://localhost:8082';
+  backendBaseURL = 'http://localhost:8080';
   kakaoRedirectUri = 'http://localhost:3000/kakao';
   swaggerUrl = backendBaseURL + '/swagger';
 } else if (hostname === 'todo-springboot.indralight.net') {

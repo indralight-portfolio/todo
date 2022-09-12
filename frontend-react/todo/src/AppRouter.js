@@ -13,7 +13,9 @@ import { API_NAME, SWAGGER_URL } from './app-config';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      <Link href={SWAGGER_URL}>{API_NAME} </Link>
+      <Link href={SWAGGER_URL} target="_blank">
+        {API_NAME}
+      </Link>
     </Typography>
   );
 }

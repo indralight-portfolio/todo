@@ -66,6 +66,7 @@ class SignUp extends React.Component {
                 id="password"
                 label="패스워드"
                 name="password"
+                type="password"
                 autoComplete="current-password"
               />
             </Grid>
