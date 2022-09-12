@@ -5,13 +5,13 @@ import Login from './Login';
 import SignUp from './SignUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
-import { Container, Grid, Link, Button } from '@material-ui/core';
+import { Container, Grid, Link } from '@material-ui/core';
 import Kakao from './Kakao';
 import { API_NAME, SWAGGER_URL } from './app-config';
 
 function Copyright() {
   return (
-    <Container maxWidth="xs" style="text-align:center">
+    <Container maxWidth="xs" style={{ textAlign: 'center' }}>
       <Grid justifyContent="space-between" container>
         <Grid item>
           <Link
