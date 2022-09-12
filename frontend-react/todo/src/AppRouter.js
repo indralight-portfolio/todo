@@ -14,22 +14,15 @@ function Copyright() {
     <Container maxWidth="xs" style={{ textAlign: 'center' }}>
       <Grid justifyContent="space-between" container>
         <Grid item>
-          <Link
-            href="http://todo-springboot.indralight.net:3000"
-            target="_blank"
-          >
+          <Link href="http://todo-springboot.indralight.net:3000">
             springboot
           </Link>
         </Grid>
         <Grid item>
-          <Link href="http://todo-nodejs.indralight.net:3000" target="_blank">
-            nodejs
-          </Link>
+          <Link href="http://todo-nodejs.indralight.net:3000">nodejs</Link>
         </Grid>
         <Grid item>
-          <Link href="http://todo-aspnet.indralight.net:3000" target="_blank">
-            aspnet
-          </Link>
+          <Link href="http://todo-aspnet.indralight.net:3000">aspnet</Link>
         </Grid>
       </Grid>
       <Link href={SWAGGER_URL} target="_blank">
