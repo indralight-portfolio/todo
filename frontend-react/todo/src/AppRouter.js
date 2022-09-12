@@ -6,14 +6,14 @@ import SignUp from './SignUp';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { Link } from '@material-ui/core';
 import Kakao from './Kakao';
+import { API_NAME, SWAGGER_URL } from './app-config';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright '}
-      indra, {new Date().getFullYear()}
-      {'.'}
+      <Link href={SWAGGER_URL}>{API_NAME} </Link>
     </Typography>
   );
 }

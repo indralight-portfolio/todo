@@ -27,7 +27,7 @@ export function call(api, method, request) {
     })
     .catch((error) => {
       console.log(error);
-      if (error === 403) {
+      if (error === 403 || error === 401) {
         window.location.href = '/login';
       }
       return Promise.reject(error);
