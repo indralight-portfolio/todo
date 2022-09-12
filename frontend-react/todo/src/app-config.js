@@ -12,15 +12,15 @@ if (hostname === 'localhost') {
   kakaoRedirectUri = 'http://localhost:3000/kakao';
   swaggerUrl = backendBaseURL + '/swagger';
 } else if (hostname === 'todo-springboot.indralight.net') {
-  backendBaseURL = 'http://todo-backend:8080';
+  backendBaseURL = 'http://todo-backend.indralight.net:8080';
   backendName = 'springboot';
   swaggerUrl = backendBaseURL + '/swagger-ui/';
 } else if (hostname === 'todo-nodejs.indralight.net') {
-  backendBaseURL = 'http://todo-backend:8081';
+  backendBaseURL = 'http://todo-backend.indralight.net:8081';
   backendName = 'nodejs';
   swaggerUrl = backendBaseURL + '/swagger';
 } else if (hostname === 'todo-aspnet.indralight.net') {
-  backendBaseURL = 'http://todo-backend:8082';
+  backendBaseURL = 'http://todo-backend.indralight.net:8082';
   backendName = 'aspnet';
   swaggerUrl = backendBaseURL + '/swagger';
 }
