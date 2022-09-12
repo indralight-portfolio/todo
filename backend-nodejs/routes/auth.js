@@ -4,7 +4,7 @@ const { User } = require('../models/index').Models;
 const jwt = require('jsonwebtoken');
 
 const KAKAO_ID = '29ec7a66579f65c6ba3efa0d673d5b6a';
-const JWT_SECRET = '9y$B&E)H@McQfTjWdsfdsfdsfsfsdfewr3sdfsd';
+const { JWT_SECRET } = require('./middlewares');
 
 const router = express.Router();
 

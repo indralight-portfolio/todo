@@ -1,10 +1,14 @@
 const jwt = require('jsonwebtoken');
 
+const JWT_SECRET = '9y$B&E)H@McQfTjWdsfdsfdsfsfsdfewr3sdfsd';
+
+exports.JWT_SECRET = JWT_SECRET;
+
 exports.verifyToken = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     //console.log(token, req.headers.authorization);
-    req.decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.decoded = jwt.verify(token, JWT_SECRET);
     return next();
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
