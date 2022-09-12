@@ -3,6 +3,9 @@ const cors = require('cors');
 const { User } = require('../models/index').Models;
 const jwt = require('jsonwebtoken');
 
+const KAKAO_ID = '29ec7a66579f65c6ba3efa0d673d5b6a';
+const JWT_SECRET = '9y$B&E)H@McQfTjWdsfdsfdsfsfsdfewr3sdfsd';
+
 const router = express.Router();
 
 router.use(async (req, res, next) => {
@@ -142,7 +145,7 @@ router.post('/signin', async (req, res, next) => {
           {
             id: exUser.id,
           },
-          process.env.JWT_SECRET,
+          JWT_SECRET,
           {
             expiresIn: '10m', // 분
             issuer: 'todo api',
@@ -198,11 +201,11 @@ router.post('/kakao', async (req, res, next) => {
   const { code, redirectUri } = req.body;
   try {
     console.log(code, redirectUri);
-    const kakaoId = process.env.KAKAO_ID;
+    const kakaoId = KAKAO_ID;
     console.log(kakaoId);
 
     const config = {
-      client_id: process.env.KAKAO_ID,
+      client_id: kakaoId,
       grant_type: 'authorization_code',
       redirect_uri: redirectUri,
       code: code,
@@ -250,7 +253,7 @@ router.post('/kakao', async (req, res, next) => {
         {
           id: user.id,
         },
-        process.env.JWT_SECRET,
+        JWT_SECRET,
         {
           expiresIn: '10m', // 분
           issuer: 'todo api',
